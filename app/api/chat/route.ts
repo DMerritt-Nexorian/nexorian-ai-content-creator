@@ -1,19 +1,20 @@
 import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 
 export const maxDuration = 60;
 
-export async function POST(req: Request) {
-  const { messages, system, model = "openai" } = await req.json();
+// Sovereign Nexorian / Jarvis local inference (OpenAI-compatible)
+const nexorian = createOpenAI({
+  baseURL: process.env.NEXORIAN_INFERENCE_URL || "http://localhost:11434/v1",
+  apiKey: process.env.NEXORIAN_API_KEY || "nexorian-local",
+});
 
-  const selected = model === "anthropic" 
-    ? anthropic("claude-sonnet-4-5") 
-    : openai("gpt-4o");
+export async function POST(req: Request) {
+  const { messages, system } = await req.json();
 
   const result = streamText({
-    model: selected,
-    system: system || "You are a high-integrity AI content creator from Nexorian. Prioritize accuracy, value, and efficiency.",
+    model: nexorian(process.env.NEXORIAN_MODEL || "jarvis"),
+    system: system || "You are a high-integrity AI content creator from Nexorian. Prioritize accuracy, value, efficiency, and sovereignty. No external dependencies.",
     messages,
   });
 

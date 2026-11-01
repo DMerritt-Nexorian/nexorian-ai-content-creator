@@ -1,16 +1,13 @@
 # Nexorian AI Content Creator
 
-AI-assisted content creation platform for YouTube, TikTok, Instagram and more.
+Sovereign content ideation, scripting, and optimization for YouTube, TikTok, Instagram.
 
-## Features
-- Platform-specific ideation and scripting
-- High-integrity generation
-- Streaming responses
-- Ready for Vercel deployment
+**No external API keys.** Routes through your own Nexorian / Jarvis local inference node.
 
 ## Setup
-1. Clone and `npm install`
-2. Add `OPENAI_API_KEY` (or `ANTHROPIC_API_KEY`) to `.env.local`
-3. `npm run dev`
+1. `npm install`
+2. Ensure your Jarvis / Ollama / local OpenAI-compatible endpoint is running
+3. Copy `.env.example` to `.env.local` and set `NEXORIAN_INFERENCE_URL` (default: `http://localhost:11434/v1`)
+4. `npm run dev`
 
-Part of the Nexorian / VITA sovereign AI suite.
+Part of the Nexorian / VITA sovereign stack.
